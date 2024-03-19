@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Winning Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        select,
+        input,
+        button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #details-container {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>IPL Winning Prediction</h1>
+        <div class="form-container">
+            <label for="batting-team">BATTING TEAM</label>
+            <select id="batting-team">
+                <option value="" selected disabled hidden>Select a team</option>
+                <option value="CSK">Chennai Super Kings</option>
+                <option value="DC">Delhi Capitals</option>
+                <option value="KKR">Kolkata Knight Riders</option>
+                <option value="MI">Mumbai Indians</option>
+                <option value="RCB">Royal Challengers Bangalore</option>
+                <option value="RR">Rajasthan Royals</option>
+                <option value="SRH">Sunrisers Hyderabad</option>
+            </select>
+        </div>
+        <div class="form-container">
+            <label for="bowling-team">BOWLING TEAM</label>
+            <select id="bowling-team">
+                <option value="" selected disabled hidden>Select a team</option>
+                <option value="CSK">Chennai Super Kings</option>
+                <option value="DC">Delhi Capitals</option>
+                <option value="KKR">Kolkata Knight Riders</option>
+                <option value="MI">Mumbai Indians</option>
+                <option value="RCB">Royal Challengers Bangalore</option>
+                <option value="RR">Rajasthan Royals</option>
+                <option value="SRH">Sunrisers Hyderabad</option>
+            </select>
+        </div>
+        <button type="button" onclick="calculateWinner()">Submit</button>
+    </div>
+
+    <div class="container" id="details-container">
+        <h1>Match Details</h1>
+        <div class="form-container">
+            <label for="batting-team-output">Batting Team:</label>
+            <input type="text" id="batting-team-output">
+        </div>
+        <div class="form-container">
+            <label for="bowling-team-output">Bowling Team:</label>
+            <input type="text" id="bowling-team-output">
+        </div>
+        <div class="form-container">
+            <label for="runs-left">Runs Left:</label>
+            <input type="number" id="runs-left">
+        </div>
+        <div class="form-container">
+            <label for="balls-left">Balls Left:</label>
+            <input type="number" id="balls-left">
+        </div>
+        <div class="form-container">
+            <label for="wickets-left">Wickets Left:</label>
+            <input type="number" id="wickets-left">
+        </div>
+        <div class="form-container">
+            <label for="total-runs">Total Runs:</label>
+            <input type="number" id="total-runs">
+        </div>
+        <div class="form-container">
+            <label for="cur-run-rate">Current Run Rate:</label>
+            <input type="number" id="cur-run-rate">
+        </div>
+        <div class="form-container">
+            <label for="req-run-rate">Required Run Rate:</label>
+            <input type="number" id="req-run-rate">
+        </div>
+
+        <button type="button" onclick="navigateToResult()">Predict</button>
+    </div>
+
+    <script>
+        function calculateWinner() {
+            var battingTeam = document.getElementById("batting-team").value;
+            var bowlingTeam = document.getElementById("bowling-team").value;
+
+            if (battingTeam === "" || bowlingTeam === "") {
+                alert("Please select both batting and bowling teams before submitting.");
+                return;
+            }
+
+            var runsLeft = document.getElementById("runs-left").value;
+            var ballsLeft = document.getElementById("balls-left").value;
+            var wicketsLeft = document.getElementById("wickets-left").value;
+            var totalRuns = document.getElementById("total-runs").value;
+            var curRunRate = document.getElementById("cur-run-rate").value;
+            var reqRunRate = document.getElementById("req-run-rate").value;
+
+            var predictedWinner = "";
+
+            if (runsLeft > 20 && wicketsLeft < 2) {
+                predictedWinner = battingTeam;
+            } else if (reqRunRate <= curRunRate) {
+                predictedWinner = battingTeam;
+            } else {
+                predictedWinner = bowlingTeam;
+            }
+
+            // Display details
+            document.getElementById("batting-team-output").value = battingTeam;
+            document.getElementById("bowling-team-output").value = bowlingTeam;
+            document.getElementById("runs-left").value = runsLeft;
+            document.getElementById("balls-left").value = ballsLeft;
+            document.getElementById("wickets-left").value = wicketsLeft;
+            document.getElementById("total-runs").value = totalRuns;
+            document.getElementById("cur-run-rate").value = curRunRate;
+            document.getElementById("req-run-rate").value = reqRunRate;
+
+            document.getElementById("details-container").style.display = "block";
+        }
+
+        function navigateToResult() {
+            // Generate the prediction and pass it to the result page
+            var battingTeam = document.getElementById("batting-team").value;
+            var bowlingTeam = document.getElementById("bowling-team").value;
+            var runsLeft = document.getElementById("runs-left").value;
+            var ballsLeft = document.getElementById("balls-left").value;
+            var wicketsLeft = document.getElementById("wickets-left").value;
+            var totalRuns = document.getElementById("total-runs").value;
+            var curRunRate = document.getElementById("cur-run-rate").value;
+            var reqRunRate = document.getElementById("req-run-rate").value;
+
+            var predictedWinner = "";
+
+            if (runsLeft > 20 && wicketsLeft < 2) {
+                predictedWinner = battingTeam;
+            } else if (reqRunRate <= curRunRate) {
+                predictedWinner = battingTeam;
+            } else {
+                predictedWinner = bowlingTeam;
+            }
+
+            // Redirect to the result page with the prediction
+            window.location.href = 'result.html?prediction=' + predictedWinner;
+        }
+    </script>
+</body>
+
+</html>

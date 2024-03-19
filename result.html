@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-image: url("bg2.jpeg");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif; /* Optional */
+        }
+
+        h1 {
+            text-align: center;
+            color: black;
+            margin-top: 20%;
+        }
+
+        h2 {
+            text-align: center;
+            font-style: initial;
+            font-size: 48px; /* Corrected font-size value */
+            color: #070700;
+        }
+
+        /* Center the image horizontally and vertically */
+        .center-image {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+</head>
+<body>
+    <div style="text-align:center;">
+        <h1>Prediction Result</h1>
+        <img src="bg2.jpeg" alt="photo" class="center-image">
+        <h2>The predicted Team is: {{ Prediction }}</h2> <!-- Placeholder for predicted team -->
+    </div>
+</body>
+</html>
